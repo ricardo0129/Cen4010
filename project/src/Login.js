@@ -40,7 +40,6 @@ const Login = ({navigation}) => {
         />
       </View>
    
- 
       <TouchableOpacity style={styles.loginBtn}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
@@ -64,11 +63,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
- 
   image: {
     marginBottom: 40,
   },
- 
   inputView: {
     backgroundColor:"#E5E5E5",
     borderRadius: 14,
@@ -78,14 +75,12 @@ const styles = StyleSheet.create({
  
     alignItems: "center",
   },
- 
   TextInput: {
     height: 50,
     flex: 1,
     padding: 10,
     marginLeft: 20,
   },
- 
   register_button: {
     height: 30,
     margin: 10,
