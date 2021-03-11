@@ -10,11 +10,15 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
- 
-const Login = ({navigation}) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
- 
+
+
+
+const Login= ({navigation}) => {
+const [credentials, setCredentials] = useState({
+  username: "",
+  password: "",
+});
+
   return (
     <View style={styles.container}>
       <Text style={styles.titleFont}>Log in</Text>
@@ -25,7 +29,7 @@ const Login = ({navigation}) => {
           style={styles.TextInput}
           placeholder="Email."
           placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(email) => setCredentials({email:email})}
         />
       </View>
 
@@ -36,14 +40,15 @@ const Login = ({navigation}) => {
           placeholder="Password."
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
+          onChangeText={(password) => setCredentials({password:password})}
         />
       </View>
    
- 
-      <TouchableOpacity style={styles.loginBtn}>
+      <TouchableOpacity style={styles.loginBtn}
+      onPress={() => navigation.navigate('TicketCreation')}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
+
       <TouchableOpacity
       onPress={() => navigation.navigate('Registration')}>
         <Text style={styles.register_button}>Not Registered?</Text>
@@ -64,11 +69,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
- 
   image: {
     marginBottom: 40,
   },
- 
   inputView: {
     backgroundColor:"#E5E5E5",
     borderRadius: 14,
@@ -78,14 +81,12 @@ const styles = StyleSheet.create({
  
     alignItems: "center",
   },
- 
   TextInput: {
     height: 50,
     flex: 1,
     padding: 10,
     marginLeft: 20,
   },
- 
   register_button: {
     height: 30,
     margin: 10,
