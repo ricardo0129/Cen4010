@@ -22,7 +22,6 @@ const Stack = createStackNavigator();
 const App = () => {
 
   return (  
-
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Login" component={Login} />
