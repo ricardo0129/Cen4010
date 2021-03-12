@@ -13,7 +13,7 @@ import {
   SafeAreaView,
 } from "react-native";
 
-const Registration= () => {
+const Registration= ({navigation}) => {
   const [credentials, setCredentials] = useState({
     username: "",
     email: "", 
@@ -78,7 +78,7 @@ const Registration= () => {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Address Line 2"
+          placeholder="Address Line 2."
           placeholderTextColor="#003f5c"
           onChangeText={(address_line_2) => setCredentials({address_line_2:address_line_2})}
         />
@@ -89,7 +89,7 @@ const Registration= () => {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="City"
+          placeholder="City."
           placeholderTextColor="#003f5c"
           onChangeText={(city) => setCredentials({city:city})}
         />
@@ -100,7 +100,7 @@ const Registration= () => {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="State"
+          placeholder="State."
           placeholderTextColor="#003f5c"
           onChangeText={(state) => setCredentials({state:state})}
         />
@@ -110,7 +110,7 @@ const Registration= () => {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Zip Code"
+          placeholder="Zip Code."
           placeholderTextColor="#003f5c"
           onChangeText={(zip_code) => setCredentials({zip_code:zip_code})}
         />
@@ -122,7 +122,7 @@ const Registration= () => {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Mile Radius"
+          placeholder="Mile Radius."
           placeholderTextColor="#003f5c"
           onChangeText={(mile_radius) => setCredentials({mile_radius:mile_radius})}
         />
@@ -134,12 +134,13 @@ const Registration= () => {
       
    
 
-      <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>Login</Text>
+      <TouchableOpacity style={styles.loginBtn}
+      onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.loginText}>Register</Text>
       </TouchableOpacity>
       <TouchableOpacity
-      onPress={() => navigation.navigate('Registration')}>
-        <Text style={styles.register_button}>Not Registered?</Text>
+      onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.register_button}>Already have an Account?</Text>
       </TouchableOpacity>
     </ScrollView>
     </SafeAreaView>
