@@ -45,7 +45,7 @@ const [credentials, setCredentials] = useState({
       </View>
    
       <TouchableOpacity style={styles.loginBtn}
-      onPress={() => navigation.navigate('TicketCreation')}>
+      onPress={() => navigation.navigate('PreviewPage')}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
 
