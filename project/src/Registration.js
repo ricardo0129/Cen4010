@@ -12,19 +12,30 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
+const axios = require('axios')
 
 const Registration= ({navigation}) => {
   const [credentials, setCredentials] = useState({
     username: "",
     email: "", 
     password: "",
-    address_line_1: "",
-    address_line_2: "",
+    addressLine1: "",
+    addressLine2: "",
     city: "",
     state: "",
-    zip_code: "",
-    mile_radius:5})
-  
+    zipCode: 12,
+    mileRadius: 5})
+ 
+  const handleClick2 = () =>{
+    console.log(credentials)
+    console.log(credentials.username)
+    const params= { username: credentials.username, password: credentials.password,addressLine1:credentials.addressLine1,
+    addressLine2:credentials.addressLine2,city:credentials.city,state:credentials.city,zipCode:credentials.zipCode,mileRadius:credentials.mileRadius};
+    axios.post('http://165.227.119.71/api/auth/register/', params)
+        .then(response => localStorage.setItem('token',response.data.token)); 
+    navigation.navigate('TicketCreation')
+  }
+
   return (
     <SafeAreaView style={styles.container}>
     <ScrollView contentContainerStyle={{flexGrow : 1, justifyContent : 'center',alignItems:"center", paddingVertical:100}}>
@@ -38,8 +49,11 @@ const Registration= ({navigation}) => {
           style={styles.TextInput}
           placeholder="Username."
           placeholderTextColor="#003f5c"
-          secureTextEntry={true}
-          onChangeText={(username) => setCredentials({username:username})}
+          onChangeText={(user) =>{
+            let current =  credentials;
+            current.username = user;
+            setCredentials(current);
+          }}
         />
       </View>
 
@@ -49,7 +63,11 @@ const Registration= ({navigation}) => {
           style={styles.TextInput}
           placeholder="Email."
           placeholderTextColor="#003f5c"
-          onChangeText={(email) => setCredentials({email:email})}
+          onChangeText={(em) => {
+            let current = credentials;
+            current.email = em;
+            setCredentials(current);
+          }}
         />
       </View>
 
@@ -59,7 +77,11 @@ const Registration= ({navigation}) => {
           style={styles.TextInput}
           placeholder="Password."
           placeholderTextColor="#003f5c"
-          onChangeText={(password) => setCredentials({password:password})}
+          onChangeText={(password) =>{
+            let current = credentials;
+            credentials.password = password;
+            setCredentials(current);
+          }}
         />
       </View>
 
@@ -70,7 +92,11 @@ const Registration= ({navigation}) => {
           style={styles.TextInput}
           placeholder="Address Line 1."
           placeholderTextColor="#003f5c"
-          onChangeText={(address_line_1) => setCredentials({address_line_1:address_line_1})}
+          onChangeText={(address_line_1) => {
+            let current = credentials;
+            credentials.addressLine1 = address_line_1;
+            setCredentials(current);
+          }}
         />
       </View>
     
@@ -80,7 +106,11 @@ const Registration= ({navigation}) => {
           style={styles.TextInput}
           placeholder="Address Line 2."
           placeholderTextColor="#003f5c"
-          onChangeText={(address_line_2) => setCredentials({address_line_2:address_line_2})}
+          onChangeText={(address_line_2) => {
+            let current = credentials;
+            credentials.addressLine2 = address_line_2;
+            setCredentials(current);
+          }}
         />
       </View>
       
@@ -91,7 +121,11 @@ const Registration= ({navigation}) => {
           style={styles.TextInput}
           placeholder="City."
           placeholderTextColor="#003f5c"
-          onChangeText={(city) => setCredentials({city:city})}
+          onChangeText={(city) => {
+            let current = credentials;
+            credentials.city = city;
+            setCredentials(current);
+          }}
         />
       </View>
 
@@ -102,7 +136,11 @@ const Registration= ({navigation}) => {
           style={styles.TextInput}
           placeholder="State."
           placeholderTextColor="#003f5c"
-          onChangeText={(state) => setCredentials({state:state})}
+          onChangeText={(state) => {
+            let current = credentials;
+            credentials.state = state;
+            setCredentials(current);
+          }}
         />
       </View>
 
@@ -112,7 +150,11 @@ const Registration= ({navigation}) => {
           style={styles.TextInput}
           placeholder="Zip Code."
           placeholderTextColor="#003f5c"
-          onChangeText={(zip_code) => setCredentials({zip_code:zip_code})}
+          onChangeText={(zip_code) => {
+            let current = credentials;
+            credentials.zipCode = zip_code;
+            setCredentials(current);
+          }}
         />
       </View>
 
@@ -124,7 +166,11 @@ const Registration= ({navigation}) => {
           style={styles.TextInput}
           placeholder="Mile Radius."
           placeholderTextColor="#003f5c"
-          onChangeText={(mile_radius) => setCredentials({mile_radius:mile_radius})}
+          onChangeText={(mile_radius) =>{
+            let current = credentials;
+            credentials.mileRadius = mile_radius;
+            setCredentials(current);
+          }}
         />
       </View>
 
@@ -135,7 +181,7 @@ const Registration= ({navigation}) => {
    
 
       <TouchableOpacity style={styles.loginBtn}
-      onPress={() => navigation.navigate('Login')}>
+      onPress={handleClick2}>
         <Text style={styles.loginText}>Register</Text>
       </TouchableOpacity>
       <TouchableOpacity

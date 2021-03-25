@@ -1,6 +1,7 @@
 import { registerRootComponent} from 'expo';
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
+
 import {
   StyleSheet,
   Text,
@@ -9,15 +10,20 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  Alert,
 } from "react-native";
-
-
+const axios = require('axios')
 
 const Login= ({navigation}) => {
 const [credentials, setCredentials] = useState({
   username: "",
   password: "",
 });
+const handleClick = ()=>{
+    const params= { username: credentials.username, password: credentials.password};
+    axios.post('http://165.227.119.71/api/auth/login/', params)
+        .then(response => {console.log(response);localStorage.setItem('token',response.data.token);navigation.navigate('TicketCreation')}).catch((err)=>{Alert.alert("WRONG LOGING");navigation.navigate('Login')}); 
+};
 
   return (
     <View style={styles.container}>
@@ -29,7 +35,11 @@ const [credentials, setCredentials] = useState({
           style={styles.TextInput}
           placeholder="Email."
           placeholderTextColor="#003f5c"
-          onChangeText={(email) => setCredentials({email:email})}
+          onChangeText={(email) => {
+            let current = credentials
+            current.username = email
+            setCredentials(current)
+          }}
         />
       </View>
 
@@ -40,18 +50,27 @@ const [credentials, setCredentials] = useState({
           placeholder="Password."
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
-          onChangeText={(password) => setCredentials({password:password})}
+          onChangeText={(password) => {
+            let current = credentials
+            current.password = password
+            setCredentials(current)
+          }}
         />
       </View>
    
       <TouchableOpacity style={styles.loginBtn}
-      onPress={() => navigation.navigate('TicketCreation')}>
+      onPress={handleClick}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
       onPress={() => navigation.navigate('Registration')}>
         <Text style={styles.register_button}>Not Registered?</Text>
+      </TouchableOpacity>     
+
+      <TouchableOpacity style={styles.loginBtn}
+      onPress={() => navigation.navigate('ShowTickets')}>
+        <Text style={styles.loginText}>Show Tickets</Text>
       </TouchableOpacity>
     </View>
   );

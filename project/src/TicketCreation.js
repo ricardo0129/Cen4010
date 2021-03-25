@@ -12,11 +12,13 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 
 import CheckBox from '@react-native-community/checkbox';
 import {Picker} from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import axios from 'axios';
 
 
 const TicketRegistration = ({navigation}) => {
@@ -53,6 +55,14 @@ const TicketRegistration = ({navigation}) => {
   const showTimepicker = () => {
     showMode('time');
   };
+
+  const handleClick3 = () =>{
+      let tok = localStorage.getItem('token');
+      let js_date = new Date(date);
+      const par = {token: tok,title:title,catagory:category,notes:notes,date:js_date.getTime()/1000};
+      axios.post('http://165.227.119.71/api/ticket/', par).then(response=>{Alert.alert("TICKET GOOD")}).catch(err=>{Alert.alert("TICKET BAD")});
+      navigation.navigate("ShowTickets");
+  }
 
   return (
     
@@ -163,8 +173,8 @@ const TicketRegistration = ({navigation}) => {
         </View>
         
         <TouchableOpacity style={styles.postBtn}
-        /*onPress={() => navigation.navigate('')}*/>
-          <Text style={styles.postText}>Post</Text>
+        onPress={handleClick3}>
+          <Text style={styles.postText}>Post Ticket</Text>
         </TouchableOpacity>
 
         <Text/>
