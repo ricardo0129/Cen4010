@@ -22,7 +22,7 @@ const [credentials, setCredentials] = useState({
 const handleClick = ()=>{
     const params= { username: credentials.username, password: credentials.password};
     axios.post('http://165.227.119.71/api/auth/login/', params)
-        .then(response => {console.log(response);localStorage.setItem('token',response.data.token);navigation.navigate('TicketCreation')}).catch((err)=>{Alert.alert("WRONG LOGING");navigation.navigate('Login')}); 
+        .then(response => {console.log(response);localStorage.setItem('token',response.data.token);navigation.navigate('TicketCreation')}).catch((err)=>{Alert.alert("INCORRECT CREDENTIALS");navigation.navigate('Login')}); 
 };
 
   return (
