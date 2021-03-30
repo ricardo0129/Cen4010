@@ -24,16 +24,33 @@ const Registration= ({navigation}) => {
     city: "",
     state: "",
     zipCode: 12,
-    mileRadius: 5})
+    mileRadius: 5,
+    latitude: 0.0,
+    longitude: 0.0
+    })
  
   const handleClick2 = () =>{
     console.log(credentials)
     console.log(credentials.username)
     const params= { username: credentials.username, password: credentials.password,addressLine1:credentials.addressLine1,
-    addressLine2:credentials.addressLine2,city:credentials.city,state:credentials.city,zipCode:credentials.zipCode,mileRadius:credentials.mileRadius};
+    addressLine2:credentials.addressLine2,city:credentials.city,state:credentials.city,zipCode:credentials.zipCode,mileRadius:credentials.mileRadius,
+    longitude:12.000, latitude:13.00};
     axios.post('http://165.227.119.71/api/auth/register/', params)
         .then(response => localStorage.setItem('token',response.data.token)); 
     navigation.navigate('TicketCreation')
+  }
+  const register = () =>{
+    const pa ={address:credentials.addressLine1,key:"AIzaSyBmpFDg0CGEAiLahct3zYSfDHcxVFUt_0I"};
+    axios.get('https://maps.googleapis.com/maps/api/geocode/json?',{params:pa})
+      .then(response=>{
+        console.log("--------");console.log(response.data.results[0].formatted_address);
+        let current = credentials;
+        current.latitude = response.data.results[0].geometry.location.lat;
+        current.longitude = response.data.results[0].geometry.location.lng;
+        setCredentials(current);
+        console.log(response.data.results[0].geometry.location)
+        handleClick2();
+     });
   }
 
   return (
@@ -181,7 +198,7 @@ const Registration= ({navigation}) => {
    
 
       <TouchableOpacity style={styles.loginBtn}
-      onPress={handleClick2}>
+      onPress={register}>
         <Text style={styles.loginText}>Register</Text>
       </TouchableOpacity>
       <TouchableOpacity

@@ -1,6 +1,7 @@
 import { registerRootComponent} from 'expo';
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
+import Geocoder from 'react-native-geocoding';
 
 import {
   StyleSheet,
@@ -13,7 +14,7 @@ import {
   Alert,
 } from "react-native";
 const axios = require('axios')
-
+Geocoder.init("AIzaSyBmpFDg0CGEAiLahct3zYSfDHcxVFUt_0I");
 const Login= ({navigation}) => {
 const [credentials, setCredentials] = useState({
   username: "",
@@ -25,6 +26,17 @@ const handleClick = ()=>{
         .then(response => {console.log(response);localStorage.setItem('token',response.data.token);navigation.navigate('TicketCreation')}).catch((err)=>{Alert.alert("WRONG LOGING");navigation.navigate('Login')}); 
 };
 
+
+navigator.geolocation.getCurrentPosition(
+(position) => {
+console.log(position);
+},
+(error) => {
+// See error code charts below.
+console.log(error.code, error.message);
+},
+{ enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+);
   return (
     <View style={styles.container}>
       <Text style={styles.titleFont}>Log in</Text>
