@@ -61,7 +61,7 @@ const TicketRegistration = ({navigation}) => {
       let js_date = new Date(date);
       const par = {token: tok,title:title,catagory:category,notes:notes,date:js_date.getTime()/1000};
       axios.post('http://165.227.119.71/api/ticket/', par).then(response=>{Alert.alert("TICKET GOOD")}).catch(err=>{Alert.alert("TICKET BAD")});
-      navigation.navigate("ShowTickets");
+      navigation.navigate("PreviewPage");
   }
 
   return (

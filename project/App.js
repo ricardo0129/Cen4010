@@ -1,8 +1,6 @@
 import { registerRootComponent} from 'expo';
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import 'localstorage-polyfill';
-
 import {
   StyleSheet,
   Text,
@@ -18,7 +16,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from "./src/Login"
 import Registration from './src/Registration';
 import TicketCreation from './src/TicketCreation';
-import PreviewPage from './src/PreviewPage'
+import MyTickets from './src/MyTickets';
+import AcceptedTickets from './src/AcceptedTickets';
+import PreviewPage from './src/PreviewPage';
+import TabNavigation from './src/TabNavigation'
 
 const Stack = createStackNavigator();
 
@@ -29,8 +30,9 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Registration" component={Registration} />
-        <Stack.Screen name ="TicketCreation" component={TicketCreation} />
-        <Stack.Screen name="PreviewPage" component={PreviewPage} />
+
+        
+        <Stack.Screen name ="TabNavigation" component={TabNavigation} />
       </Stack.Navigator>
     </NavigationContainer>
     )
